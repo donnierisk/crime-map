@@ -2,13 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
+Vue.config.productionTip = false
+
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyDnkCpz57JyEC6kQ4rqIJglbsy_1mJXzc0',
+    key: process.env.VUE_APP_API_KEY
   },
  })
-
-Vue.config.productionTip = false
 new Vue({
   render: h => h(App),
 }).$mount('#app')

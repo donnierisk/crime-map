@@ -3,6 +3,7 @@
 		<h3>{{ mapName }}:</h3>
 		<div id="mapContainer">
 			<GmapMap
+				ref="mapRef"
 				:center="{lat:-33.918861, lng:18.423300}"
 				:zoom="12"
 				map-type-id="terrain"
@@ -14,6 +15,8 @@
 </template>
 
 <script>
+import {gmapApi} from 'vue2-google-maps'
+
 export default {
   name: 'Map',
 	data: function () {
@@ -21,6 +24,16 @@ export default {
 			mapName: "Crime Map",
 		}
 	},
+	computed: {
+		google: gmapApi
+	},
+	mounted() {
+		// this.$refs.mapRef.$mapPromise.then((map) => {
+		// 	setTimeout(function() {
+    //   	map.panTo({lat:-33.918861, lng:18.443310})
+		// 	}, 2500)
+    // })
+	}
 }
 </script>
 
