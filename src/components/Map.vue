@@ -1,12 +1,10 @@
 <template>
 	<div>
 		<h3>{{ mapName }}:</h3>
-		<button @click="geocodeAddress">
-			Add address
-		</button>
-		<div v-if="mapLoaded === false" id="mapContainer">
+		<div id="mapContainer" v-if="markers.length > 0">
+
 			<GmapMap
-				ref="mapRef"
+				ref="gmap"
 				:center="{lat:-33.918861, lng:18.423300}"
 				:zoom="12"
 				map-type-id="terrain"
@@ -18,7 +16,7 @@
 					:position="m.position"
 					:clickable="true"
 					:draggable="true"
-					@click="center=m.position"
+					@click="marker(m.position)"
 				/>
 			</GmapMap>
 		</div>
@@ -26,30 +24,13 @@
 </template>
 
 <script>
-import {gmapApi} from 'vue2-google-maps'
 
 export default {
   name: 'Map',
-	
+	props: ['markers'],
 	data: function () {
 		return {
 			mapName: "Crime Map",
-			mapLoaded: false
-		}
-	},
-	computed: {
-		google: gmapApi,
-		markers: () => {
-			
-			let positions = [
-				{
-					position:{lat:-33.918861, lng:18.423300}
-				},
-				{
-					position:{lat:-33.908861, lng:18.523300}
-				}
-			]
-			return positions;
 		}
 	},
 	mounted() {
@@ -60,29 +41,9 @@ export default {
     // })
 	},
 	methods: {
-		geocodeAddress: function () {
-			const address = "Zonnebloem";
-				var geocoder = new this.google.maps.Geocoder();
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === 'OK') {
-            // resultsMap.setCenter(results[0].geometry.location);
-            // var marker = new google.maps.Marker({
-            //   map: resultsMap,
-            //   position: results[0].geometry.location
-            // });
-						const lat = results[0].geometry.location.lat();
-						const lng = results[0].geometry.location.lng();
-						const position = {
-							lat,
-							lng
-						};
-						console.log(position);
-
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-      }
+		marker: function(position) {
+			console.log("HEE", position);
+		}
 	}
 }
 </script>

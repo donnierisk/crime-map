@@ -7,8 +7,7 @@ Vue.config.productionTip = false
 Vue.use(VueGoogleMaps, {
   load: {
     key: process.env.VUE_APP_API_KEY
-  },
-  libraries: 'geocoding'
+  }
  })
 new Vue({
   render: h => h(App),
